@@ -1,0 +1,26 @@
+@import "susy";
+
+$total-columns: 12;
+$column-width: 4em;
+$gutter-width: 1em;
+$grid-padding: $gutter-width;
+
+body {
+	.page {
+		@include container;
+		.nav {
+			@include span-columns(6 of 12);
+			@include prefix(3);
+		}
+		.main {
+			@include span-columns(10 of 12);
+			@include prefix(1);
+		}
+		.sidebar {
+
+		}
+		.footer {
+
+		}
+	}
+}
