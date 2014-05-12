@@ -1,0 +1,8 @@
+<% sale_items.each do |item| %>
+<a href=<%= for_sale_detail_url(item) %>>
+	<div class="shop-thumbnail">
+		<img src=<%= for_sale_image_url(item, "front") %>/>
+		<p><%= item[:item_name] %></p>
+	</div>
+</a>
+<% end %>

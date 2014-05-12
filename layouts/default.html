@@ -3,33 +3,44 @@
   <head>
     <meta charset="utf-8">
     <title><%= page_title(@item) %></title>
-    <link href="<%= @items['/assets/style/screen/'].path %>" media="screen, projection" rel="stylesheet">
-    <link href="<%= @items['/assets/style/print/'].path %>" media="print" rel="stylesheet">
+
+    <link href="/assets/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <link href="/assets/style/screen.css" media="screen, projection" rel="stylesheet">
+    <link href="/assets/style/print.css" media="print" rel="stylesheet">    
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700">
     <!--[if IE]>
     <link href = "<%= @items['/assets/style/ie/'].path %>" rel="stylesheet">
     <![endif]-->
     <!-- you don't need to keep this, but it's cool for stats! -->
     <meta name="generator" content="nanoc <%= Nanoc::VERSION %>">
   </head>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37484464-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
   <body>
     <div class="page">
-      <nav class="nav">
-      </nav>
-      <div class="main">
-        <%= yield %>
-      </div>
+      <header>
+        <nav>
+          <a href="/about"><div class=<%= tab_class("about", @item) %> id="nav-left"><p>ABOUT</p></div></a>
+          <a href="/collections/2014/spring-summer"><div class=<%= tab_class("collections", @item) %> id="nav-mid-left"><p>S/S 2014</p></div></a>
+          <a href="/matcher"><div class=<%= tab_class("matcher", @item) %> id="nav-mid-right"><p>MATCHER</p></div></a>
+          <a href="/shop"><div class=<%= tab_class("shop", @item) %> id="nav-right"><p>SHOP</p></div></a>
+        </nav>
+      </header>
       <div class="sidebar">
-        <h2>Documentation</h2>
-        <ul>
-          <li><a href="http://nanoc.ws/docs/">Documentation</a></li>
-          <li><a href="http://nanoc.ws/docs/tutorial/">Getting Started</a></li>
-        </ul>
-        <h2>Community</h2>
-        <ul>
-          <li><a href="http://groups.google.com/group/nanoc/">Discussion Group</a></li>
-          <li><a href="irc://chat.freenode.net/#nanoc">IRC Channel</a></li>
-          <li><a href="http://github.com/nanoc/nanoc/wiki/">Wiki</a></li>
-        </ul>
+      </div>
+      <div id="content">
+        <%= yield %>
       </div>
       <footer class="footer">
       </footer>

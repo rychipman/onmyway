@@ -20,6 +20,7 @@ unless defined? LOADED_DEFAULT_CONFIG
 end
 
 require 'susy'
+require 'RMagick'
 
 ### Routing ##################################################################
 
@@ -30,6 +31,10 @@ end
 
 route '/404/' do
   '/404.html'
+end
+
+route '/htaccess/' do
+  '/.htaccess'
 end
 
 route '/assets/style/partials/*/' do
@@ -64,7 +69,7 @@ end
 
 compile '/assets/style/*/' do
   filter :sass, Compass.sass_engine_options
-  # filter :relativize_paths, :type => :css
+  filter :relativize_paths, :type => :css
   # filter :rainpress
 end
 
@@ -88,20 +93,19 @@ end
 compile '/' do
   filter :erb
   layout '/default/'
-  # filter :relativize_paths, :type => :html
+  filter :relativize_paths, :type => :html
   # filter TypographicalImprovementFilter, TypographicalImprovementFilterParams
 end
 
 compile '*' do
-  filter :erb if item[:is_dynamic]
+  filter :erb# if item[:is_dynamic]
   case item[:markdown]
   when 'advanced'
     filter :kramdown, :auto_ids => false
   when 'basic'
     filter :rdiscount
   end
-  filter :remove_spacing_around_pre
-  filter :add_ids_to_headers
+  filter :erb
   if item.identifier == '/release-notes/'
     filter :link_github_issues
   end
@@ -114,11 +118,11 @@ compile '*' do
   when 'filter', 'helper'
     layout '/autodoc/'
   end
-  layout '/default/'
+  layout '/article/'
 
-  filter :add_toc
+  # filter :add_toc
   filter :colorize_syntax, :is_fullpage => true
-  # filter :relativize_paths, :type => :html unless item[:is_partial] || item[:kind] == 'article'
+  filter :relativize_paths, :type => :html unless item[:is_partial] || item[:kind] == 'article'
   # filter TypographicalImprovementFilter, TypographicalImprovementFilterParams
 end
 

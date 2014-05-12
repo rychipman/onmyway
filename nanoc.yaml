@@ -22,10 +22,10 @@ enable_output_diff: false
 deploy:
   default:
     kind: rsync
-    dst:  "rchipman@athena.dialup.mit.edu:/afs/athena.mit.edu/user/r/c/rchipman/web_scripts/ryanchipman"
+    dst:  "rchipman@scripts.mit.edu:onmyway"
   test:
     kind: rsync
-    dst:  "rchipman@athena.dialup.mit.edu:/afs/athena.mit.edu/user/r/c/rchipman/web_scripts/ryanchipman_test"
+    dst:  "rchipman@scripts.mit.edu:onmyway_test"
 
 prune:
   # Whether to automatically remove files not managed by nanoc from the output
@@ -65,3 +65,7 @@ data_sources:
     # will have the identifier “/about/” when turned off, but when turned on
     # it will become “/about.html/” instead.
     allow_periods_in_identifiers: false
+
+  -
+    type: static
+    items_root: /static/

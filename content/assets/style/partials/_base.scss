@@ -1,26 +1,139 @@
 @import "susy";
+@import "compass/css3";
 
-$total-columns: 12;
-$column-width: 4em;
+/* Susy constants */
+
+$total-columns: 16;
+$column-width: 3.5em;
 $gutter-width: 1em;
 $grid-padding: $gutter-width;
 
+/* Colors */
+
+$black: #000;
+$white: #FFF;
+$gray: #999;
+
+/* Dimensions */
+
+$nav-height: 60px;
+$title-font-size: 1.35*$column-width;
+$headline-font-size: .6*$column-width;
+$section-font-size: .5*$column-width;
+$body-font-size: .3*$column-width;
+$nav-tab-font-size: .35*$column-width; 
+$nav-tab-radius: $nav-height/2;
+
+/* Other */
+
+$fonts: Source Sans Pro;
+
+@include font-face(Helvetica, font-files("/assets/fonts/helveticaneue-ultraligcondobl-webfont.woff", "/assets/fonts/allura.eot", "/assets/fonts/allura.ttf", "/assets/fonts/allura.svg"));
+
+@mixin box {
+	background-color: $white;
+	// padding: $nav-tab-radius;
+}
+
+@mixin navtab {
+	font-size: $nav-tab-font-size;
+	height: $nav-height;
+	@include with-grid-settings(4,25%,0%,0%) {
+		@include span-columns(1);
+	}
+	&:hover {
+		background-color: $gray;
+		color: $black;
+		@include opacity(.6);
+	}
+	p {
+		padding-top: 12%;
+	}
+}
+
+@mixin content-box {
+	@include box;
+	text-align: center;
+	padding: 0 2em 1em 2em;
+	h1 {
+		font-size: $headline-font-size;
+		padding-top: .4em;
+		padding-bottom: .4em;
+	}
+	h2 {
+		font-size: $section-font-size;
+	}
+	p {
+		font-size: $body-font-size;
+		padding-top: .2em;
+		padding-bottom: .6em;
+	}
+}
+
 body {
+	@include border-box-sizing;
+	background-color: $white;
+	text-align: center;
+	font-family: $fonts;
+	font-weight: 200;
+	color: $black;
 	.page {
-		@include container;
-		.nav {
-			@include span-columns(6 of 12);
-			@include prefix(3);
+		@include container($total-columns);
+		// @include susy-grid-background;
+		// background-color: $light-gray;
+		padding-bottom: 2.5em;
+		header {
+			padding: 1em;
+			nav {
+				@include span-columns(8);
+				@include push(4);
+				background-color: $white;
+				height: $nav-height;
+				clear: both;
+				.nav-tab {
+					@include navtab;
+				}
+				.current-tab {
+					@include navtab;
+					background-color: $black;
+					color: $white;
+				}
+			}
 		}
-		.main {
-			@include span-columns(10 of 12);
-			@include prefix(1);
+		#content {
+			@include span-columns(8,16);
+			@include push(4);
+			img {
+					max-width: 100%;
+			}
+			.main {
+				padding-top: 2em;
+				border: 4px solid $black;
+				@include box;
+				.content {
+					@include content-box;
+				}
+			}
 		}
 		.sidebar {
-
+			@include span-columns(4,16);
 		}
 		.footer {
-
+			@include span-columns(8);
+			@include push(4);
+			clear: both;
 		}
 	}
+}
+
+a {
+	color: $black;
+	text-decoration: none;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+ul {
+	list-style-position: inside;
 }
